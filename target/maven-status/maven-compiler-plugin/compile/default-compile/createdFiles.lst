@@ -1,0 +1,11 @@
+vislab\no\ntnu\factories\DeviceFactory.class
+vislab\no\ntnu\providers\Device.class
+vislab\no\ntnu\annotations\DeviceSPI.class
+vislab\no\ntnu\annotations\processors\AnnotationProccesor.class
+vislab\no\ntnu\annotations\processors\ProjectorAnnotationProcessor.class
+vislab\no\ntnu\factories\ProjectorFactory.class
+vislab\no\ntnu\annotations\processors\DeviceAnnotationProcessor.class
+vislab\no\ntnu\providers\Projector.class
+vislab\no\ntnu\annotations\ProjectorSPI.class
+vislab\no\ntnu\providers\Command.class
+vislab\no\ntnu\DeviceManager.class
