@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import vislab.no.ntnu.factories.DeviceFactory;
-import vislab.no.ntnu.factories.DeviceManagerFactory;
 import vislab.no.ntnu.factories.ProjectorFactory;
 import vislab.no.ntnu.providers.Device;
 import vislab.no.ntnu.providers.Projector;
@@ -52,7 +51,6 @@ public abstract class DeviceManager {
         return projector;
     }
     public String locateDevicePage(int id){
-        loadManagers();
         String deviceControllerPageLink = "";
         for(DeviceManager mc : controllers){
             if(deviceControllerPageLink.isEmpty()){
@@ -63,11 +61,6 @@ public abstract class DeviceManager {
             }
         }
         return deviceControllerPageLink;
-    }
-
-    private void loadManagers() {
-        DeviceManagerFactory managerFactory = DeviceManagerFactory.getInstance();
-        controllers = managerFactory.getManagers();
     }
 
     /**
