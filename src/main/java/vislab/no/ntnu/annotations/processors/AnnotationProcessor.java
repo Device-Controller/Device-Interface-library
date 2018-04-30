@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,13 +23,13 @@ import javax.tools.StandardLocation;
 import vislab.no.ntnu.annotations.ProjectorSPI;
 
 
-public class AnnotationProccesor {
+public class AnnotationProcessor {
 
-    public static boolean proccess(ProcessingEnvironment processingEnv, RoundEnvironment roundEnv, Class<?> spiClass, String contract, String path){
+    public static boolean proccess(ProcessingEnvironment processingEnv, RoundEnvironment roundEnv, Class<? extends Annotation> spiClass, String contract, String path){
         if (roundEnv.processingOver()) return false;
         // TODO should not write anything until processingOver
         Elements elements = processingEnv.getElementUtils();
-        for (Element e : roundEnv.getElementsAnnotatedWith(ProjectorSPI.class)) {
+        for (Element e : roundEnv.getElementsAnnotatedWith(spiClass)) {
             TypeElement type = (TypeElement) e;
             Set<String> lines = new HashSet<>();
             lines.add(elements.getBinaryName(type).toString());

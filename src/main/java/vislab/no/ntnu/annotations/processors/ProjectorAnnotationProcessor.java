@@ -21,6 +21,6 @@ public class ProjectorAnnotationProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        return AnnotationProccesor.proccess(processingEnv,roundEnv, ProjectorSPI.class,CONTRACT,PATH);
+        return AnnotationProcessor.proccess(processingEnv,roundEnv, ProjectorSPI.class,CONTRACT,PATH);
     }
 }
