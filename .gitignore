@@ -1,2 +1,4 @@
 .idea/
 target/
+Vislab-Devices.iml
+src/main/resources/META-INF/MANIFEST.MF
