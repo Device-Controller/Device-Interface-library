@@ -15,7 +15,5 @@ public interface Projector extends Device{
 
     int unMute();
 
-    int getPowerState();
-
     int getLampStatus();
 }

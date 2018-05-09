@@ -20,5 +20,7 @@ public interface Device {
 
     void setPort(int port);
 
+    int getPowerState();
+
     boolean initialize();
 }
