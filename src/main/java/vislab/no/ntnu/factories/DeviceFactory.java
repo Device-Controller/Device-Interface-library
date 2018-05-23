@@ -4,7 +4,9 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
 
@@ -44,5 +46,17 @@ public class DeviceFactory {
             serviceError.printStackTrace();
         }
         return device;
+    }
+    public List<Device> getAllDevices(){
+        List<Device> devices = new ArrayList<>();
+        loader.reload();
+        try{
+            Iterator<Device> devicesIt = loader.iterator();
+            while(devicesIt.hasNext()){
+                devices.add(devicesIt.next());
+                }
+        } catch (ServiceConfigurationError serviceError){
+        }
+        return devices;
     }
 }

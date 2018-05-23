@@ -4,10 +4,13 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
 
+import vislab.no.ntnu.providers.Device;
 import vislab.no.ntnu.providers.Projector;
 
 
@@ -44,5 +47,17 @@ public class ProjectorFactory {
             serviceError.printStackTrace();
         }
         return projector;
+    }
+    public List<Projector> getAllProjectors(){
+        List<Projector> Projectors = new ArrayList<>();
+        loader.reload();
+        try{
+            Iterator<Projector> ProjectorsIt = loader.iterator();
+            while(ProjectorsIt.hasNext()){
+                Projectors.add(ProjectorsIt.next());
+            }
+        } catch (ServiceConfigurationError serviceError){
+        }
+        return Projectors;
     }
 }

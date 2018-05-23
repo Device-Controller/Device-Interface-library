@@ -1,9 +1,9 @@
 package vislab.no.ntnu;
 
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +17,13 @@ public abstract class DeviceManager {
     private static Map<Integer, Device> activeDevices;
     @Autowired
     private List<DeviceManager> controllers;
+    private static List<Device> supportedDevices;
+
+    static {
+        supportedDevices = new ArrayList<>();
+        supportedDevices.addAll(DeviceFactory.getInstance().getAllDevices());
+        supportedDevices.addAll(ProjectorFactory.getInstance().getAllProjectors());
+    }
 
     private void checkActiveDevices() {
         if (activeDevices == null) {
@@ -24,38 +31,45 @@ public abstract class DeviceManager {
         }
     }
 
-    public Map<Integer, Device> getActiveDevices(){
+    public Map<Integer, Device> getActiveDevices() {
         checkActiveDevices();
         return activeDevices;
     }
 
-    public Device getDevice(int id){
+    public List<Device> getSupportedDevices() {
+        checkActiveDevices();
+        return supportedDevices;
+    }
+
+    public Device getDevice(int id) {
         Device device = getActiveDevices().get(id);
         return device;
     }
-    public Device createNewDevice(int id, String manufacturer, String model){
+
+    public Device createNewDevice(int id, String manufacturer, String model) {
         DeviceFactory df = DeviceFactory.getInstance();
         Device device = df.getDevice(manufacturer, model);
-        if(device != null){
-            getActiveDevices().put(id,device);
+        if (device != null) {
+            getActiveDevices().put(id, device);
         }
         return device;
     }
-    
-    public Projector createNewProjector(int id, String manufacturer, String model){
+
+    public Projector createNewProjector(int id, String manufacturer, String model) {
         ProjectorFactory df = ProjectorFactory.getInstance();
         Projector projector = df.getProjector(manufacturer, model);
-        if(projector != null){
-            getActiveDevices().put(id,projector);
+        if (projector != null) {
+            getActiveDevices().put(id, projector);
         }
         return projector;
     }
-    public String locateDevicePage(int id){
+
+    public String locateDevicePage(int id) {
         String deviceControllerPageLink = "";
-        for(DeviceManager mc : controllers){
-            if(deviceControllerPageLink.isEmpty()){
+        for (DeviceManager mc : controllers) {
+            if (deviceControllerPageLink.isEmpty()) {
                 deviceControllerPageLink = mc.getDevicePage(id);
-                if(deviceControllerPageLink == null){
+                if (deviceControllerPageLink == null) {
                     deviceControllerPageLink = "";
                 }
             }
@@ -64,11 +78,12 @@ public abstract class DeviceManager {
     }
 
     /**
-     *  Returns the implementing classes path to their html page. Default is empty string, causing a page reload.
+     * Returns the implementing classes path to their html page. Default is empty string, causing a page reload.
+     *
      * @param id The id of the device in question.
      * @return the string containg the path to the devices html page
      */
-    public String getDevicePage(int id){
+    public String getDevicePage(int id) {
         return "";
     }
 }
